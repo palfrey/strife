@@ -1,0 +1,4 @@
+requests_oauthlib
+flask
+
+pip-tools
