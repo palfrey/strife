@@ -1,5 +1,5 @@
 from requests_oauthlib import OAuth2Session
-from flask import Flask, request, redirect, session, url_for
+from flask import Flask, request, redirect, session, url_for, render_template
 from flask.json import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
@@ -10,6 +10,11 @@ from .models import make_models
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 db = SQLAlchemy(app)
 models = make_models(db)
 User = models['User']
@@ -25,13 +30,14 @@ scopes = ['identify', 'connections']
 
 @app.route("/")
 def index():
-    if 'oauth_token' not in session:
-        return redirect("/login")
-    else:
-        discord = OAuth2Session(client_id, token=session['oauth_token'])
-        discord_user = discord.get('https://discordapp.com/api/users/@me').json()
-        return str(session['user'])
-        #return jsonify(session['oauth_token'])
+    return render_template('index.html', user_id=session.get('user', None))
+
+@app.route("/profile/<id>")
+def profile(id):
+    return render_template('profile.html', user=User.query.get(id), user_id=session.get('user', None))
+    #     discord = OAuth2Session(client_id, token=session['oauth_token'])
+    #     discord_user = discord.get('https://discordapp.com/api/users/@me').json()
+    #     return str(session['user'])
 
 @app.route("/login")
 def login():
@@ -65,4 +71,4 @@ def callback():
     db.session.commit()
     session['user'] = user.id
     session['oauth_token'] = token
-    return redirect("/")
+    return redirect("/profile/%s" % str(user.id))

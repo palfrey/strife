@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Strife - {{ user.username }}#{{ user.discriminator }} {% endblock %}
+{% block main %}
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">{{ user.username }}#{{ user.discriminator }}</h1>
+    <p><img src="https://cdn.discordapp.com/avatars/{{ user.discord_id }}/{{ user.avatar_hash }}.png?size=128" />
+  </div>
+</div>
+{% endblock %}

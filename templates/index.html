@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Strife - Discord profile display{% endblock %}
+{% block main %}
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="display-3">Strife</h1>
+    <p>Strife is a simple app for displaying Discord profiles</p>
+    <p><a class="btn btn-primary btn-lg" href="{{ "/login" if user_id == None else ("/profile/%s" % user_id) }}" role="button">Get your profile</a></p>
+  </div>
+</div>
+{% endblock %}
