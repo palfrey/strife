@@ -18,6 +18,7 @@ def make_session_permanent():
 db = SQLAlchemy(app)
 models = make_models(db)
 User = models['User']
+Connection = models['Connection']
 migrate = Migrate(app, db)
 
 client_id = "608731377990500370"
@@ -34,17 +35,33 @@ def index():
 
 @app.route("/profile/<id>")
 def profile(id):
-    return render_template('profile.html', user=User.query.get(id), user_id=session.get('user', None))
-    #     discord = OAuth2Session(client_id, token=session['oauth_token'])
-    #     discord_user = discord.get('https://discordapp.com/api/users/@me').json()
-    #     return str(session['user'])
+    user = User.query.get(id)
+    user_id = session.get('user', None)
+    if user_id == user.id:
+        discord = OAuth2Session(client_id, token=session['oauth_token'])
+        connections = discord.get('https://discordapp.com/api/users/@me/connections').json()
+        current_connections = dict([((c['type'], c['id']), c) for c in connections])
+        stored_connections = dict([((c.kind, c.discord_id), c) for c in user.connections])
+        found_connections = []
+        for conn_key in current_connections.keys():
+            conn = current_connections[conn_key]
+            if conn['visibility'] == 0:
+                continue
+            if conn_key in stored_connections:
+                found_connections.append(stored_connections[conn_key])
+                del stored_connections[conn_key]
+            else:
+                new_conn = Connection(user_id=user.id, discord_id=conn['id'], name=conn['name'], kind=conn['type'])
+                db.session.add(new_conn)
+        for c in stored_connections.values():
+            db.session.delete(c)
+        db.session.commit()
+    return render_template('profile.html', user=user, user_id=user_id, connections=sorted(user.connections, key=lambda c: c.kind))
 
 @app.route("/login")
 def login():
     discord = OAuth2Session(client_id, scope=scopes)
     authorization_url, state = discord.authorization_url(authorization_base_url)
-
-    # State is used to prevent CSRF, keep this for later.
     session['oauth_state'] = state
     return redirect(authorization_url)
 
@@ -55,7 +72,7 @@ def callback():
         token = discord.fetch_token(token_url, client_secret=client_secret,
                                 authorization_response=request.url)
     except oauthlib.oauth2.rfc6749.errors.InvalidClientIdError:
-        # got refreshed
+        # got re-used, so retry
         return redirect("/login")
     discord_user = discord.get('https://discordapp.com/api/users/@me').json()
     discord_id = discord_user['id']

@@ -1,5 +1,6 @@
 requests_oauthlib
 flask
 flask-migrate
+titlecase
 
 pip-tools

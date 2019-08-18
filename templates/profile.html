@@ -5,6 +5,18 @@
   <div class="container">
     <h1 class="display-3">{{ user.username }}#{{ user.discriminator }}</h1>
     <p><img src="https://cdn.discordapp.com/avatars/{{ user.discord_id }}/{{ user.avatar_hash }}.png?size=128" />
+    <p>
+      <h2>Connections</h2>
+      {% if connections %}
+      <ul>
+      {% for conn in connections %}
+      <li>{{ conn.display_name() }}: <a href="{{conn.link()}}">{{conn.name}}</a></li>
+      {% endfor %}
+      </ul>
+      {% else %}
+      No connections to other sites
+      {% endif %}
+    </p>
   </div>
 </div>
 {% endblock %}
