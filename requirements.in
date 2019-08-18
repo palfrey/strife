@@ -2,5 +2,6 @@ requests_oauthlib
 flask
 flask-migrate
 titlecase
+python-dotenv
 
 pip-tools

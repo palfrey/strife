@@ -4,12 +4,21 @@ from flask.json import jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import oauthlib
-
+from dotenv import load_dotenv
 from .models import make_models
+import os
+
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+client_id = os.getenv("DISCORD_CLIENT_ID")
+client_secret = os.getenv("DISCORD_CLIENT_SECRET")
+app.secret_key = os.getenv("SECRET_KEY")
+
+authorization_base_url = 'https://discordapp.com/api/oauth2/authorize'
+token_url = 'https://discordapp.com/api/oauth2/token'
 
 @app.before_request
 def make_session_permanent():
@@ -21,12 +30,6 @@ User = models['User']
 Connection = models['Connection']
 migrate = Migrate(app, db)
 
-client_id = "608731377990500370"
-client_secret = "t7faFXVZFLLkvZe0GsR8iHxaEd3qdXip"
-authorization_base_url = 'https://discordapp.com/api/oauth2/authorize'
-token_url = 'https://discordapp.com/api/oauth2/token'
-
-app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 scopes = ['identify', 'connections']
 
 @app.route("/")
