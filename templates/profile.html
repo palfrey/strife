@@ -4,17 +4,6 @@
 <div class="jumbotron">
   <div class="container">
     <h2 class="display-4">{{ user.username }}#{{ user.discriminator }}</h2>
-    <p>
-      <label for="profile">Profile url:</label>
-      <div class="input-group mb-3">
-        <input class="form-control" type="text" id="profile" value="{{ url }}" aria-describedby="profile-addon" />
-        <div class="input-group-append">
-          <button id="profile-addon" class="btn" data-toggle="tooltip" data-clipboard-target="#profile">
-            <img src="https://clipboardjs.com/assets/images/clippy.svg" alt="Copy to clipboard" width="13" />
-          </button>
-        </div>
-      </div>
-    </p>
     <p><img src="https://cdn.discordapp.com/avatars/{{ user.discord_id }}/{{ user.avatar_hash }}.png?size=128" />
     <p>
       <h2>Connections</h2>
@@ -27,6 +16,17 @@
       {% else %}
       No connections to other sites
       {% endif %}
+    </p>
+    <p>
+      <label for="profile"><h3>Profile url:</h3></label>
+      <div class="input-group mb-3">
+        <input class="form-control" type="text" id="profile" value="{{ url }}" aria-describedby="profile-addon" />
+        <div class="input-group-append">
+          <button id="profile-addon" class="btn" data-toggle="tooltip" data-clipboard-target="#profile">
+            <img src="https://clipboardjs.com/assets/images/clippy.svg" alt="Copy to clipboard" width="13" />
+          </button>
+        </div>
+      </div>
     </p>
   </div>
 </div>
