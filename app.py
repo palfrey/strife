@@ -59,7 +59,7 @@ def profile(id):
         for c in stored_connections.values():
             db.session.delete(c)
         db.session.commit()
-    return render_template('profile.html', user=user, user_id=user_id, connections=sorted(user.connections, key=lambda c: c.kind))
+    return render_template('profile.html', user=user, user_id=user_id, connections=sorted(user.connections, key=lambda c: c.kind), url=request.url)
 
 @app.route("/login")
 def login():
