@@ -34,11 +34,13 @@ scopes = ['identify', 'connections']
 
 @app.route("/")
 def index():
-    return render_template('index.html', user_id=session.get('user', None))
+    user_id = session.get('user', None)
+    user = User.query.get(user_id) if user_id != None else None
+    return render_template('index.html', user_id=user_id, user=user)
 
 @app.route("/profile/<id>")
 def profile(id):
-    user = User.query.get(id)
+    user = User.query.get_or_404(id)
     user_id = session.get('user', None)
     if user_id == user.id:
         discord = OAuth2Session(client_id, token=session['oauth_token'])

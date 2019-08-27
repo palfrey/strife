@@ -5,7 +5,7 @@
   <div class="container">
     <h1 class="display-1">Strife</h1>
     <p>Strife is a simple app for displaying Discord profiles</p>
-    <p><a class="btn btn-primary btn-lg" href="{{ "/login" if user_id == None else ("/profile/%s" % user_id) }}" role="button">Get your profile</a></p>
+    <p><a class="btn btn-primary btn-lg" href="{{ "/login" if user == None else ("/profile/%s" % user_id) }}" role="button">Get your profile</a></p>
   </div>
 </div>
 {% endblock %}
