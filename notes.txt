@@ -1,4 +1,0 @@
-https://requests-oauthlib.readthedocs.io/en/latest/
-https://discordapp.com/developers/docs/topics/oauth2
-https://flask.palletsprojects.com/en/1.1.x/
-https://stackoverflow.com/a/27785830/320546 - ssl issues
