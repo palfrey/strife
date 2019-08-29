@@ -1,5 +1,5 @@
-from .guid import GUID
-from .json_field import JSONEncodedDict
+from guid import GUID
+from json_field import JSONEncodedDict
 import uuid
 from titlecase import titlecase
 

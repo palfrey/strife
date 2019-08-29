@@ -5,8 +5,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import oauthlib
 from dotenv import load_dotenv
-from .models import make_models
+
 import os
+import sys
+sys.path.append(os.getcwd())
+
+from models import make_models
 
 load_dotenv()
 
