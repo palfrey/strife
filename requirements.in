@@ -4,5 +4,6 @@ flask-migrate
 titlecase
 python-dotenv
 gunicorn
+psycopg2
 
 pip-tools
