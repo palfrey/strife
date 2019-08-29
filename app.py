@@ -67,16 +67,20 @@ def profile(id):
         db.session.commit()
     return render_template('profile.html', user=user, user_id=user_id, connections=sorted(user.connections, key=lambda c: c.kind), url=request.url)
 
+def make_discord():
+    return OAuth2Session(client_id, scope=scopes, redirect_uri=url_for('callback', _external=True))
+
 @app.route("/login")
 def login():
-    discord = OAuth2Session(client_id, scope=scopes, redirect_uri=url_for('callback', _external=True))
+    discord = make_discord()
     authorization_url, state = discord.authorization_url(authorization_base_url)
     session['oauth_state'] = state
     return redirect(authorization_url)
 
 @app.route("/callback")
 def callback():
-    discord = OAuth2Session(client_id, state=session['oauth_state'])
+    discord = make_discord()
+    discord.state = session['oauth_state']
     try:
         token = discord.fetch_token(token_url, client_secret=client_secret,
                                 authorization_response=request.url)
