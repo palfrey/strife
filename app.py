@@ -69,7 +69,7 @@ def profile(id):
 
 @app.route("/login")
 def login():
-    discord = OAuth2Session(client_id, scope=scopes)
+    discord = OAuth2Session(client_id, scope=scopes, redirect_uri=url_for('callback', _external=True))
     authorization_url, state = discord.authorization_url(authorization_base_url)
     session['oauth_state'] = state
     return redirect(authorization_url)
