@@ -6,4 +6,6 @@ python-dotenv
 gunicorn
 psycopg2
 
+pytest
+
 pip-tools

@@ -6,6 +6,8 @@ from flask_migrate import Migrate
 import oauthlib
 from dotenv import load_dotenv
 
+# This bit of magic here makes both "flask db upgrade" and running under Gunicorn work
+# by adding the local directory to the Python path, so the "from models..." bit below works
 import os
 import sys
 sys.path.append(os.getcwd())
