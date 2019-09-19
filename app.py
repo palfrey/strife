@@ -6,6 +6,8 @@ from flask_migrate import Migrate
 import oauthlib
 from dotenv import load_dotenv
 
+# This bit of magic here makes both "flask db upgrade" and running under Gunicorn work
+# by adding the local directory to the Python path, so the "from models..." bit below works
 import os
 import sys
 sys.path.append(os.getcwd())
@@ -48,7 +50,9 @@ def profile(id):
     user_id = session.get('user', None)
     if user_id == user.id:
         discord = OAuth2Session(client_id, token=session['oauth_token'])
-        connections = discord.get('https://discordapp.com/api/users/@me/connections').json()
+        connections = discord.get('https://discordapp.com/api/users/@me/connections')
+        connections.raise_for_status()
+        connections = connections.json()
         current_connections = dict([((c['type'], c['id']), c) for c in connections])
         stored_connections = dict([((c.kind, c.discord_id), c) for c in user.connections])
         found_connections = []
