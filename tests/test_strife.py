@@ -15,6 +15,7 @@ def client():
     db_fd, db_path = tempfile.mkstemp()
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///%s" % db_path
     app.config['TESTING'] = True
+    app.config['SECRET_KEY'] = 'foo'
 
     with app.test_client() as client:
         with app.app_context():
