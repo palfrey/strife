@@ -5,15 +5,22 @@
 #    pip-compile
 #
 alembic==1.0.11           # via flask-migrate
+argh==0.26.2              # via watchdog
+asn1crypto==0.24.0        # via cryptography
 atomicwrites==1.3.0       # via pytest
 attrs==19.1.0             # via packaging, pytest
 certifi==2019.6.16        # via requests
+cffi==1.12.3              # via cryptography
 chardet==3.0.4            # via requests
 click==7.0                # via flask, pip-tools
+colorama==0.4.1           # via pytest-watch
+cryptography==2.7         # via pyopenssl
+docopt==0.6.2             # via pytest-watch
 flask-migrate==2.5.2
 flask-sqlalchemy==2.4.0   # via flask-migrate
 flask==1.1.1
 gunicorn==19.9.0
+httpretty==0.9.6
 idna==2.8                 # via requests
 importlib-metadata==0.23  # via pluggy, pytest
 itsdangerous==1.1.0       # via flask
@@ -23,21 +30,27 @@ markupsafe==1.1.1         # via jinja2, mako
 more-itertools==7.2.0     # via pytest, zipp
 oauthlib==3.1.0           # via requests-oauthlib
 packaging==19.1           # via pytest
+pathtools==0.1.2          # via watchdog
 pip-tools==4.0.0
 pluggy==0.13.0            # via pytest
 psycopg2==2.8.3
 py==1.8.0                 # via pytest
+pycparser==2.19           # via cffi
+pyopenssl==19.0.0
 pyparsing==2.4.2          # via packaging
+pytest-watch==4.2.0
 pytest==5.1.2
 python-dateutil==2.8.0    # via alembic
 python-dotenv==0.10.3
 python-editor==1.0.4      # via alembic
+pyyaml==5.1.2             # via watchdog
 requests-oauthlib==1.2.0
 requests==2.22.0          # via requests-oauthlib
-six==1.12.0               # via packaging, pip-tools, python-dateutil
+six==1.12.0               # via cryptography, httpretty, packaging, pip-tools, pyopenssl, python-dateutil
 sqlalchemy==1.3.6         # via alembic, flask-sqlalchemy
 titlecase==0.12.0
 urllib3==1.25.3           # via requests
+watchdog==0.9.0           # via pytest-watch
 wcwidth==0.1.7            # via pytest
 werkzeug==0.15.5          # via flask
 zipp==0.6.0               # via importlib-metadata

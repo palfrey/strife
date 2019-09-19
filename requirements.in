@@ -7,5 +7,10 @@ gunicorn
 psycopg2
 
 pytest
+pytest-watch
+httpretty
+
+# Workaround for https://github.com/gabrielfalcao/HTTPretty/issues/345
+pyOpenSSL
 
 pip-tools
