@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import oauthlib
 from dotenv import load_dotenv
+from oauthlib.oauth2.rfc6749.errors import TokenExpiredError
 
 # This bit of magic here makes both "flask db upgrade" and running under Gunicorn work
 # by adding the local directory to the Python path, so the "from models..." bit below works
@@ -50,7 +51,10 @@ def profile(id):
     user_id = session.get('user', None)
     if user_id == user.id:
         discord = OAuth2Session(client_id, token=session['oauth_token'])
-        connections = discord.get('https://discordapp.com/api/users/@me/connections')
+        try:
+            connections = discord.get('https://discordapp.com/api/users/@me/connections')
+        except TokenExpiredError:
+            return redirect("/login")
         connections.raise_for_status()
         connections = connections.json()
         current_connections = dict([((c['type'], c['id']), c) for c in connections])
@@ -101,7 +105,7 @@ def callback():
     user.username = discord_user['username']
     user.discriminator = discord_user['discriminator']
     user.avatar_hash = discord_user['avatar']
-    user.oauth_token=token
+    user.oauth_token = token
     db.session.commit()
     session['user'] = user.id
     session['oauth_token'] = token
