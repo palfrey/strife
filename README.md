@@ -25,6 +25,6 @@ Local setup
 1. Add new app called 'Strife'
 2. Add a new Postgres database
 3. Set the following environment variables:
-    - `GITHUB_URL`: https://github.com/palfrey/wharf.git
+    - `GITHUB_URL`: https://github.com/palfrey/strife.git
     - `SECRET_KEY`: as per [instructions for local setup](https://flask.palletsprojects.com/en/1.0.x/config/#SECRET_KEY)
 4. Deploy!
