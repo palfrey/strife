@@ -4,7 +4,7 @@ flask-migrate
 titlecase
 python-dotenv
 gunicorn
-psycopg2
+psycopg2-binary
 
 pytest
 pytest-watch
