@@ -1,6 +1,6 @@
 Strife
 ======
-[![Build Status](https://travis-ci.com/palfrey/strife.svg?branch=master)](https://travis-ci.com/palfrey/strife)
+[![Build](https://github.com/palfrey/strife/workflows/Build/badge.svg)](https://github.com/palfrey/strife/actions)
 
 Strife is a little app for displaying [Discord](https://discordapp.com/) profiles, along with their associated links.
 
