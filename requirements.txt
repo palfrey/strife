@@ -89,7 +89,7 @@ python-dotenv==0.10.3
     # via -r requirements.in
 python-editor==1.0.4
     # via alembic
-pyyaml==5.1.2
+pyyaml==5.4
     # via watchdog
 requests-oauthlib==1.2.0
     # via -r requirements.in
