@@ -69,7 +69,7 @@ pluggy==0.13.0
     # via pytest
 psycopg2-binary==2.8.6
     # via -r requirements.in
-py==1.8.0
+py==1.10.0
     # via pytest
 pycparser==2.19
     # via cffi
