@@ -14,7 +14,7 @@ attrs==19.1.0
     # via
     #   packaging
     #   pytest
-certifi==2019.6.16
+certifi==2022.12.7
     # via requests
 cffi==1.12.3
     # via cryptography
