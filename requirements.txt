@@ -26,7 +26,7 @@ click==7.0
     #   pip-tools
 colorama==0.4.1
     # via pytest-watch
-cryptography==3.3.2
+cryptography==39.0.1
     # via pyopenssl
 docopt==0.6.2
     # via pytest-watch
@@ -97,7 +97,6 @@ requests-oauthlib==1.2.0
     # via -r requirements.in
 six==1.12.0
     # via
-    #   cryptography
     #   httpretty
     #   packaging
     #   pyopenssl
