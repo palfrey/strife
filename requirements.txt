@@ -91,7 +91,7 @@ python-editor==1.0.4
     # via alembic
 pyyaml==5.4
     # via watchdog
-requests==2.26.0
+requests==2.31.0
     # via requests-oauthlib
 requests-oauthlib==1.2.0
     # via -r requirements.in
