@@ -1,7 +1,6 @@
 import tempfile
 import pytest
 from flask_migrate import upgrade
-import uuid
 import httpretty
 
 import os
